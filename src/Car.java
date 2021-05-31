@@ -1,28 +1,25 @@
 abstract class Car {
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    private int id;
     private String brand;
     private String model;
     private String color;
     private float weight;
     private int performance;
+    private int id;
+    private static int count;
 
-    public Car(int id, String brand, String model, String color, float weight, int performance) {
-        this.id = id;
+    public Car(String brand, String model, String color, float weight, int performance) {
+        count++;
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.weight = weight;
         this.performance = performance;
+        this.id = count;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public String getColor() {
         return color;

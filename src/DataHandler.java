@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class DataHandler {
     ArrayList<ElectricCar> electricCars = new ArrayList<>();
     ArrayList<InternalCombustionCar> classicCars = new ArrayList<>();
-    HashSet<Integer> ids = new HashSet<>();
     Scanner scan = new Scanner(System.in);
+
     enum Brands {
         Toyota, Ford, Honda,
         Chevrolet, Mercedes,
@@ -20,10 +20,8 @@ public class DataHandler {
         System.out.println("Enter some necessary data to an electric car");
 
         if (carType.equalsIgnoreCase("electric")) {
-            System.out.println("Enter custom ID:");
-            int id = scan.nextInt();
             System.out.println("Enter brand:");
-            String brand = check_brand_correct();
+            String brand = check_brand_correctness();
             System.out.println("Enter model name:");
             String model = scan.nextLine();
             System.out.println("Enter color:");
@@ -38,14 +36,12 @@ public class DataHandler {
             int battery = scan.nextInt();
             scan.nextLine();
 
-            this.electricCars.add(new ElectricCar( id , brand, model, color,
+            this.electricCars.add(new ElectricCar(brand, model, color,
                                                 weight, performance, range,
                                                 battery));
         } else if (carType.equalsIgnoreCase("classic")) {
-            System.out.println("Enter custom ID:");
-            int id = scan.nextInt();
             System.out.println("Enter brand:");
-            String brand = check_brand_correct();
+            String brand = check_brand_correctness();
             System.out.println("Enter model name:");
             String model = scan.nextLine();
             System.out.println("Enter color:");
@@ -57,9 +53,10 @@ public class DataHandler {
             System.out.println("Enter fuel tank capacity(L):");
             int fuelTankCapacity = scan.nextInt();
             System.out.println("Enter fuel type:");
+            scan.nextLine();
             String fuelType = scan.nextLine();
 
-            this.classicCars.add(new InternalCombustionCar( id , brand, model,
+            this.classicCars.add(new InternalCombustionCar( brand, model,
                                                             color, weight,
                                                             performance,
                                                             fuelTankCapacity,
@@ -67,11 +64,10 @@ public class DataHandler {
         }
     }
 
-    public String check_brand_correct(){
+    public String check_brand_correctness(){
         Brands[] allBrand = Brands.values();
         String brand = null;
         boolean correct = true;
-        scan.nextLine();
         while(correct) {
             brand = scan.nextLine();
             for (Brands b : allBrand) {
@@ -99,6 +95,23 @@ public class DataHandler {
         }
     }
 
+    public void printAllCars(){
+        printClassicCars();
+        printElectricCars();
+    }
+
+    public void deleteCar() {
+        System.out.println("Which ID's car do you want to delete?");
+        int id = scan.nextInt();
+        for (ElectricCar eCars : electricCars) {
+            if (eCars.getId() == id) {
+                electricCars.remove(eCars);
+            }
+        }
+        for (InternalCombustionCar cCars : classicCars) {
+            System.out.println(cCars);
+        }
+    }
     public void printType(){
         System.out.println("Which brand do you want to list?");
         String brandName = scan.nextLine();

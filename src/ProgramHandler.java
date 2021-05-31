@@ -23,9 +23,9 @@ public class ProgramHandler {
             if (input.equalsIgnoreCase("add")) {
                 dataHandler.addNewCar();
             } else if (input.equalsIgnoreCase("delete")) {
-                System.out.println("Delete");
+                dataHandler.deleteCar();
             } else if (input.equalsIgnoreCase("print all")) {
-                System.out.println("print all");
+                dataHandler.printAllCars();
             } else if (input.equalsIgnoreCase("print electric")) {
                 dataHandler.printElectricCars();
             } else if (input.equalsIgnoreCase("print classic")) {

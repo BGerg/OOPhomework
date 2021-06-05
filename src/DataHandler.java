@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class DataHandler {
@@ -21,39 +20,37 @@ public class DataHandler {
 
         if (carType.equalsIgnoreCase("electric")) {
             System.out.println("Enter brand:");
-            String brand = check_brand_correctness();
+            String brand = checkBrandCorrectness();
             System.out.println("Enter model name:");
             String model = scan.nextLine();
             System.out.println("Enter color:");
             String color = scan.nextLine();
             System.out.println("Enter weight(kg):");
-            int weight = scan.nextInt();
+            int weight = checkIsNumber();
             System.out.println("Enter performance (Hp):");
-            int performance = scan.nextInt();
+            int performance = checkIsNumber();
             System.out.println("Enter range(km):");
-            int range= scan.nextInt();
+            int range = checkIsNumber();
             System.out.println("Enter capacity of battery(kWh):");
-            int battery = scan.nextInt();
-            scan.nextLine();
+            int batteryCapacity = checkIsNumber();
 
             this.electricCars.add(new ElectricCar(brand, model, color,
                                                 weight, performance, range,
-                                                battery));
+                                                batteryCapacity));
         } else if (carType.equalsIgnoreCase("classic")) {
             System.out.println("Enter brand:");
-            String brand = check_brand_correctness();
+            String brand = checkBrandCorrectness();
             System.out.println("Enter model name:");
             String model = scan.nextLine();
             System.out.println("Enter color:");
             String color = scan.nextLine();
             System.out.println("Enter weight(kg):");
-            int weight = scan.nextInt();
+            int weight = checkIsNumber();
             System.out.println("Enter performance (Hp):");
-            int performance = scan.nextInt();
+            int performance = checkIsNumber();
             System.out.println("Enter fuel tank capacity(L):");
-            int fuelTankCapacity = scan.nextInt();
+            int fuelTankCapacity = checkIsNumber();
             System.out.println("Enter fuel type:");
-            scan.nextLine();
             String fuelType = scan.nextLine();
 
             this.classicCars.add(new InternalCombustionCar( brand, model,
@@ -64,7 +61,23 @@ public class DataHandler {
         }
     }
 
-    public String check_brand_correctness(){
+    public int checkIsNumber(){
+        String temp;
+        boolean correct = true;
+        int result = 0;
+        while(correct) {
+            temp = scan.nextLine();
+            try {
+                result = Integer.parseInt(temp);
+                correct = false;
+            } catch (NumberFormatException nfe) {
+                System.out.println("Invalid parameter! Enter again:");
+            }
+
+        }
+        return result;
+    }
+    public String checkBrandCorrectness(){
         Brands[] allBrand = Brands.values();
         String brand = null;
         boolean correct = true;
@@ -108,10 +121,8 @@ public class DataHandler {
                 electricCars.remove(eCars);
             }
         }
-        for (InternalCombustionCar cCars : classicCars) {
-            System.out.println(cCars);
         }
-    }
+
     public void printType(){
         System.out.println("Which brand do you want to list?");
         String brandName = scan.nextLine();

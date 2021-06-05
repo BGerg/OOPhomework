@@ -3,12 +3,12 @@ public class ElectricCar extends Car {
     private int batteryCapacity;
 
     public ElectricCar(String brand, String model, String color,
-                       float weight, int performance, int range,
+                       int weight, int performance, int range,
                        int batteryCapacity) {
 
         super(brand, model, color, weight, performance);
-        this.range = range;
-        this.batteryCapacity = batteryCapacity;
+        this.setRange(range);
+        this.setBatteryCapacity(batteryCapacity);
 
     }
 

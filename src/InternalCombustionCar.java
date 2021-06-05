@@ -1,14 +1,14 @@
 public class InternalCombustionCar extends Car{
-    int fuelTankCapacity;
-    String fuelType;
+    private int fuelTankCapacity;
+    private String fuelType;
 
     public InternalCombustionCar(String brand, String model,
-                                 String color, float weight,
+                                 String color, int weight,
                                  int performance, int fuelTankCapacity,
                                  String fuelType) {
         super(brand, model, color, weight, performance);
-        this.fuelTankCapacity = fuelTankCapacity;
-        this.fuelType = fuelType;
+        this.setFuelTankCapacity(fuelTankCapacity);
+        this.setFuelType(fuelType);
     }
 
 

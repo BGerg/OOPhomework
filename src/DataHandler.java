@@ -1,13 +1,12 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class DataHandler {
     ArrayList<ElectricCar> electricCars = new ArrayList<>();
     ArrayList<InternalCombustionCar> classicCars = new ArrayList<>();
-    HashSet<Integer> ids = new HashSet<>();
     Scanner scan = new Scanner(System.in);
+
     enum Brands {
         Toyota, Ford, Honda,
         Chevrolet, Mercedes,
@@ -20,46 +19,41 @@ public class DataHandler {
         System.out.println("Enter some necessary data to an electric car");
 
         if (carType.equalsIgnoreCase("electric")) {
-            System.out.println("Enter custom ID:");
-            int id = scan.nextInt();
             System.out.println("Enter brand:");
-            String brand = check_brand_correct();
+            String brand = checkBrandCorrectness();
             System.out.println("Enter model name:");
             String model = scan.nextLine();
             System.out.println("Enter color:");
             String color = scan.nextLine();
             System.out.println("Enter weight(kg):");
-            int weight = scan.nextInt();
+            int weight = checkIsNumber();
             System.out.println("Enter performance (Hp):");
-            int performance = scan.nextInt();
+            int performance = checkIsNumber();
             System.out.println("Enter range(km):");
-            int range= scan.nextInt();
+            int range = checkIsNumber();
             System.out.println("Enter capacity of battery(kWh):");
-            int battery = scan.nextInt();
-            scan.nextLine();
+            int batteryCapacity = checkIsNumber();
 
-            this.electricCars.add(new ElectricCar( id , brand, model, color,
+            this.electricCars.add(new ElectricCar(brand, model, color,
                                                 weight, performance, range,
-                                                battery));
+                                                batteryCapacity));
         } else if (carType.equalsIgnoreCase("classic")) {
-            System.out.println("Enter custom ID:");
-            int id = scan.nextInt();
             System.out.println("Enter brand:");
-            String brand = check_brand_correct();
+            String brand = checkBrandCorrectness();
             System.out.println("Enter model name:");
             String model = scan.nextLine();
             System.out.println("Enter color:");
             String color = scan.nextLine();
             System.out.println("Enter weight(kg):");
-            int weight = scan.nextInt();
+            int weight = checkIsNumber();
             System.out.println("Enter performance (Hp):");
-            int performance = scan.nextInt();
+            int performance = checkIsNumber();
             System.out.println("Enter fuel tank capacity(L):");
-            int fuelTankCapacity = scan.nextInt();
+            int fuelTankCapacity = checkIsNumber();
             System.out.println("Enter fuel type:");
             String fuelType = scan.nextLine();
 
-            this.classicCars.add(new InternalCombustionCar( id , brand, model,
+            this.classicCars.add(new InternalCombustionCar( brand, model,
                                                             color, weight,
                                                             performance,
                                                             fuelTankCapacity,
@@ -67,11 +61,26 @@ public class DataHandler {
         }
     }
 
-    public String check_brand_correct(){
+    public int checkIsNumber(){
+        String temp;
+        boolean correct = true;
+        int result = 0;
+        while(correct) {
+            temp = scan.nextLine();
+            try {
+                result = Integer.parseInt(temp);
+                correct = false;
+            } catch (NumberFormatException nfe) {
+                System.out.println("Invalid parameter! Enter again:");
+            }
+
+        }
+        return result;
+    }
+    public String checkBrandCorrectness(){
         Brands[] allBrand = Brands.values();
         String brand = null;
         boolean correct = true;
-        scan.nextLine();
         while(correct) {
             brand = scan.nextLine();
             for (Brands b : allBrand) {
@@ -98,6 +107,21 @@ public class DataHandler {
             System.out.println(cCars);
         }
     }
+
+    public void printAllCars(){
+        printClassicCars();
+        printElectricCars();
+    }
+
+    public void deleteCar() {
+        System.out.println("Which ID's car do you want to delete?");
+        int id = scan.nextInt();
+        for (ElectricCar eCars : electricCars) {
+            if (eCars.getId() == id) {
+                electricCars.remove(eCars);
+            }
+        }
+        }
 
     public void printType(){
         System.out.println("Which brand do you want to list?");
